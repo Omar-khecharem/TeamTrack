@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
 password: { type: String, required: true },
 
   position: {
-    lat: Number,
-    lng: Number
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true }
   },
 
   resetToken: String,
