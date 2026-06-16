@@ -14,10 +14,4 @@ router.post("/register",
 );
 router.post("/login", auth.login);
 
-// FORGOT PASSWORD
-router.post("/forgot-password", auth.forgotPassword);
-
-// RESET PASSWORD
-router.post("/reset-password", auth.resetPassword);
-
 module.exports = router;
