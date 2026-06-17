@@ -4,12 +4,8 @@ import 'auth_notifier.dart';
 import '../features/auth/screens/login_screen.dart';
 import '../features/auth/screens/register_screen.dart';
 import '../features/auth/screens/forgot_password_screen.dart';
-import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/attendance/screens/attendance_screen.dart';
 import '../features/members/screens/members_screen.dart';
-import '../features/settings/screens/settings_screen.dart';
-import '../features/profile/screens/profile_screen.dart';
-import '../features/profile/screens/edit_profile_screen.dart';
 import 'shell_scaffold.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -31,24 +27,10 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           _fadePage(const ForgotPasswordScreen(), state),
     ),
-    GoRoute(
-      path: '/profile/edit',
-      pageBuilder: (context, state) =>
-          _fadePage(const EditProfileScreen(), state),
-    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           ScaffoldWithNavBar(navigationShell: navigationShell),
       branches: [
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/dashboard',
-              pageBuilder: (context, state) =>
-                  _fadePage(const DashboardScreen(), state),
-            ),
-          ],
-        ),
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -67,24 +49,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/profile',
-              pageBuilder: (context, state) =>
-                  _fadePage(const ProfileScreen(), state),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/settings',
-              pageBuilder: (context, state) =>
-                  _fadePage(const SettingsScreen(), state),
-            ),
-          ],
-        ),
+
       ],
     ),
   ],
@@ -112,11 +77,11 @@ String? _authGuard(BuildContext context, GoRouterState state) {
   final location = state.matchedLocation;
 
   final isAuthRoute = switch (location) {
-    '/login' || '/register' || '/forgot-password' || '/reset-password' => true,
+    '/login' || '/register' || '/forgot-password' => true,
     _ => false,
   };
 
-  if (isLoggedIn && isAuthRoute) return '/dashboard';
+  if (isLoggedIn && isAuthRoute) return '/attendance';
   if (!isLoggedIn && !isAuthRoute) return '/login';
   return null;
 }
